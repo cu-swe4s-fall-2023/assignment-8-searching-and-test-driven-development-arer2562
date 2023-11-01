@@ -1,8 +1,6 @@
-def get_data():
-    pass
+import csv
 
-def search():
-    pass
-    
-def get_fire_gdp_year_data():
-    pass
+def clean_str(string):
+    return string.replace(",", "")
+
+

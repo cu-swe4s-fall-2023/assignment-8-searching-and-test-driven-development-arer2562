@@ -1,0 +1,45 @@
+# Define the rule to download data using wget
+rule download_data:
+    output:
+        csv1 = "Agrofood_co2_emission.csv",
+        csv2 = "IMF_GDP.csv"
+    shell:
+        "wget -O {output.csv1} 'https://docs.google.com/uc?export=download&id=1Wytf3ryf9EtOwaloms8HEzLG0yjtRqxr'; "
+        "wget -O {output.csv2} 'https://docs.google.com/uc?export=download&id=1tuoQ9UTW_XRKgBOBaTLtGXh8h0ytKvFp'"
+
+
+
+# Define the rule to process data with get_fire.py
+rule process_data:
+    input:
+        csv1 = "Agrofood_co2_emission.csv",
+        csv2 = "IMF_GDP.csv"
+    output:
+        "Albania_fire_gdp.txt"
+    params:
+        year_col=1,
+        savanna_col=2,
+        forest_col=3,
+        country="Albania"
+    script:
+        "get_fire.py {input.csv1} {input.csv2} {params.year_col} {params.savanna_col} {params.forest_col} {params.country} {output}"
+
+# Define the rule to create a scatter plot with scatter.py
+rule create_scatter_plot:
+    input:
+        "Albania_fire_gdp.txt"
+    output:
+        "Albania_fire_gdp.png"
+    params:
+        title="Albania Fires GDP",
+        x="X-axis Label",
+        y="Y-axis Label"
+    script:
+        "scatter.py {input} {output} {params.title} {params.x} {params.y}"
+
+# Define the final target rule
+rule all:
+    input:
+        "Albania_fire_gdp.png"
+
+

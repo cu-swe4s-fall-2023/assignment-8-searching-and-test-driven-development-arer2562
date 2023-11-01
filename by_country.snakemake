@@ -1,0 +1,60 @@
+import argparse
+import math_by_country as muts
+
+
+python get_fire.py \
+    Agrofood_co2_emission.csv 1 2 3 \
+    IMF_GDP.csv \
+    Albania \
+    Albania_fire_gdp.txt 
+    
+python scatter.py Albania_fire_gdp.txt Albania_fire_gdp.png Albania Fires GDP
+
+
+rule all:
+    input:
+        'histograms/quartile_1.png',
+        'histograms/quartile_2.png',
+        'histograms/quartile_3.png',
+        'histograms/quartile_4.png',
+        'subsetted_data.csv'
+
+rule subset_data:
+    output:
+        'subsetted_data.csv'
+    input:
+        'Agrofood_co2_emission.csv'
+    shell:
+        "python subset.py {input}"
+
+rule read_data:
+    input:
+        'subsetted_data.csv'
+    output:
+        'red_data.txt'
+    shell:
+        "python math_by_country.py read_data "
+        "--datafile {input} "
+        "--red_data {output}"
+
+
+def title_lambda(wildcards):
+    return wildcards.q
+
+
+rule generate_histograms:
+    input:
+        'red_data.txt'
+    output:
+        'histograms/{q}.png'
+    params:
+        title = title_lambda,
+        x_label = "X Label",
+        y_label = "Y Label"
+    shell:
+        "python math_by_country.py generate_histogram "
+        "--data_file {input} "
+        "--out_file {output} "
+        "--title {params.title} "
+        "--x_label {params.x_label} "
+        "--y_label {params.y_label}"
