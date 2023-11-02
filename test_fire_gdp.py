@@ -151,6 +151,7 @@ class TestFireGDP(unittest.TestCase):
         fire_year_col = 1
         fire_savanna_col = 2
         fire_forest_col = 3
+        fire_Co2_col = 29
         
         # 1: [ [fire], [gdp], [year] ]
         
@@ -161,16 +162,18 @@ class TestFireGDP(unittest.TestCase):
                                                country,
                                                fire_year_col,
                                                fire_savanna_col,
-                                               fire_forest_col)
+                                               fire_forest_col,
+                                               fire_Co2_col)
 
         fire = data[0]
         gdp = data[1]
         year = data[2]
+        co2 = data[3]
         
         self.assertEqual(1.3469 + 13.3278, fire[0])
         self.assertEqual(334359.13, gdp[0])
         self.assertEqual(1996, year[0])
-        
+        self.assertEqual(3231.9567474710607, co2[0])
         
 if __name__ == '__main__':
     unittest.main()

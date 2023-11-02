@@ -34,7 +34,8 @@ def get_fire_gdp_year_data(fire_file_name,
                            target_country,
                            fire_year_col,
                            fire_savanna_col,
-                           fire_forest_col):
+                           fire_forest_col,
+                           fire_Co2_col):
     
     fire_datas = get_data(fire_file_name, 
                          query_value=target_country, 
@@ -48,16 +49,18 @@ def get_fire_gdp_year_data(fire_file_name,
     fires = []
     gdps = []
     years = []
+    co2 = []
     
     for fire_data in fire_datas:
         year = fire_data[fire_year_col]
         year_idx = search(header, year)
-        if gdp_datas[0][year_idx] != '...':
+        if gdp_datas[0][year_idx] != '...' and fire_data[29] != '...':
             fires.append(float(fire_data[fire_savanna_col]) + float(fire_data[fire_forest_col]))
             years.append(int(year))
             gdps.append(float(clean_str(gdp_datas[0][year_idx])))
+            co2.append(float(fire_data[fire_Co2_col]))
             
-    return [fires, gdps, years]
+    return [fires, gdps, years, co2]
 
 if __name__ == '__main__':
     main()
