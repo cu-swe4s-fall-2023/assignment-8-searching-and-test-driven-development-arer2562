@@ -63,7 +63,11 @@ def get_fire_gdp_year_data(fire_file_name,
             years.append(int(year))
             gdps.append(float(clean_str(gdp_datas[0][year_idx])))
             co2.append(float(fire_data[fire_Co2_col]))
-            
+
+with open(out_file, 'w') as file:
+    for i in range(len(fires)):
+        file.write('\t'.join([str(fires[i]), str(gdps[i])]) + '\n')
+
     return [fires, gdps, years, co2]
 
 def scat(country, infile, out_file):
