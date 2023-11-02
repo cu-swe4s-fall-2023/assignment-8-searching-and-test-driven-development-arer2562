@@ -1,11 +1,13 @@
 country1='Argentina'
 country2='Mexico'
 country3='Brazil'
+graphdir=scats
+datadir=data
+sourcedir=scr
 
-
-python get_fire.py 'Agrofood_co2_emission.csv' 1 2 3 29 'IMF_GDP.csv' ${country1} ${country1}.txt ${country1}.png
-python get_fire.py 'Agrofood_co2_emission.csv' 1 2 3 29 'IMF_GDP.csv' ${country2} ${country2}.txt ${country2}.png
-python get_fire.py 'Agrofood_co2_emission.csv' 1 2 3 29 'IMF_GDP.csv' ${country3} ${country3}.txt ${country3}.png
+python ${sourcedir}/get_fire.py 'Agrofood_co2_emission.csv' 1 2 3 29 'IMF_GDP.csv' ${country1} ${datadir}/${country1}.txt ${graphdir}/${country1}.png
+python ${sourcedir}/get_fire.py 'Agrofood_co2_emission.csv' 1 2 3 29 'IMF_GDP.csv' ${country2} ${datadir}/${country2}.txt ${graphdir}/${country2}.png
+python ${sourcedir}/get_fire.py 'Agrofood_co2_emission.csv' 1 2 3 29 'IMF_GDP.csv' ${country3} ${datadir}/${country3}.txt ${graphdir}/${country3}.png
 
 
 
