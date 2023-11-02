@@ -22,6 +22,19 @@ class TestFireGDP(unittest.TestCase):
             self.assertIsNotNone(fire_gdp.search(random_list, random_value))
             self.assertIsNone(fire_gdp.search(random_list, no_hit_value))
             self.assertEqual(fire_gdp.search(random_list,first_value), 0)
+    
+    def test_get_data_open_file(self):
+        fire_file_name = 'Agrofood_co2_emission.csv'
+        gdp_file_name = 'IMF_GDP.csv'
+        dne_file_name = 'fire_gdp.txt'
+        empty_file_name = 'empty.txt'
+        
+        with open(empty_file_name, 'w') as empty_file:
+            pass
+        
+        self.assertEqual(fire_gdp.get_data(empty_file_name), [])
+        self.assertRaises(FileNotFoundError, fire_gdp.get_data, dne_file_name)
+            
 
     
         
