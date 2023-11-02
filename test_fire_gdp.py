@@ -88,7 +88,39 @@ class TestFireGDP(unittest.TestCase):
                           query_value=target_country,
                           query_col=10000,
                           get_header=True)
-    
+    def test_get_data_query_lines(self):
+        fire_file_name = 'Agrofood_co2_emission.csv'
+        gdp_file_name = 'IMF_GDP.csv'
+        empty_file_name = 'empty.txt'
+        
+        target_country = 'Zimbabwe'
+        
+        self.assertEqual(len(fire_gdp.get_data(fire_file_name, 
+                                               query_value=target_country, 
+                                               query_col=0)), 
+                        31)
+        
+        self.assertEqual(len(fire_gdp.get_data(gdp_file_name,
+                                               query_value=target_country,
+                                               query_col=0)), 
+                         1)
+        
+        self.assertEqual(len(fire_gdp.get_data(empty_file_name,
+                                               query_value=target_country,
+                                               query_col=0)),
+                         0)
+        
+        self.assertEqual(len(fire_gdp.get_data(gdp_file_name,
+                                               query_value=target_country,
+                                               query_col=1)), 
+                         0)
+        
+        self.assertRaises(IndexError,
+                          fire_gdp.get_data,
+                          gdp_file_name,
+                          query_value=target_country,
+                          query_col=10000)
+
         
         
 if __name__ == '__main__':
