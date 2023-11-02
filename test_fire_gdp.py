@@ -1,6 +1,10 @@
 import unittest
 import fire_gdp
 import random
+import numpy as np
+import matplotlib.pyplot as plt
+from io import StringIO
+import os
 
 class TestFireGDP(unittest.TestCase):
     def test_clean_str(self):
@@ -174,6 +178,31 @@ class TestFireGDP(unittest.TestCase):
         self.assertEqual(334359.13, gdp[0])
         self.assertEqual(1996, year[0])
         self.assertEqual(3231.9567474710607, co2[0])
+    
+    def test_scat(self):
+        # Create random data for testing
+        data = np.random.rand(10, 2)
+
+        # Call the scat function with the random data
+        country = 'test'
+        infile = 'test_data.txt'
+        out_file = 'test_scatter.png'
+
+        with open(infile, 'w') as f:
+            for row in data:
+                f.write(f'{row[0]}\t{row[1]}\n')
+
+        fire_gdp.scat(country, infile, out_file)
+
+        # Check if the output file was created
+        self.assertTrue(os.path.isfile(out_file))
+
+    def tearDown(self):
+        # Clean up by removing the output file and the test data file
+        if os.path.isfile('test_scatter.png'):
+            os.remove('test_scatter.png')
+        if os.path.isfile('test_data.txt'):
+            os.remove('test_data.txt')
         
 if __name__ == '__main__':
     unittest.main()

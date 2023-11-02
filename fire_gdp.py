@@ -1,4 +1,8 @@
 import csv
+import matplotlib
+matplotlib.use('Agg')
+import matplotlib.pyplot as plt
+import numpy as np
 
 def clean_str(string):
     return string.replace(",", "")
@@ -62,7 +66,27 @@ def get_fire_gdp_year_data(fire_file_name,
             
     return [fires, gdps, years, co2]
 
+def scat(country, infile, out_file):
+    # Scatter plot
+    data = np.genfromtxt(infile, delimiter='\t', names=['TotalFires', 'GDP'])
+    title = "GDP vs Fires for " + country
+    x_label = "Total Fires"
+    y_label = "GDP"
+
+    X = data['TotalFires']
+    Y = data['GDP']
+
+    fig, ax = plt.subplots()
+    ax.scatter(X, Y)
+    ax.spines['top'].set_visible(False)
+    ax.spines['right'].set_visible(False)
+    ax.set_xlabel(x_label)
+    ax.set_ylabel(y_label)
+    ax.set_title(title)
+
+    plt.savefig(out_file, bbox_inches='tight')
+
+
+
 if __name__ == '__main__':
     main()
-
-
