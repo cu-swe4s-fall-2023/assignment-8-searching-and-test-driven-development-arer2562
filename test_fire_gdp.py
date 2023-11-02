@@ -121,8 +121,20 @@ class TestFireGDP(unittest.TestCase):
                           query_value=target_country,
                           query_col=10000)
 
+    def test_get_data_fire_and_year(self):
+        fire_file_name = 'Agrofood_co2_emission.csv'
+        target_country = 'Albania'
         
+        data = fire_gdp.get_data(fire_file_name, 
+                                 query_value=target_country, 
+                                 query_col=0)
         
+        self.assertEqual(data[0][0], 'Albania')
+        self.assertEqual(data[0][1], '1990')
+        self.assertEqual(data[1][2], '5.5561')
+    
+    
+
 if __name__ == '__main__':
     unittest.main()
   
