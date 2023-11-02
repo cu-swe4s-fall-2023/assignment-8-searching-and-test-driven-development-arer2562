@@ -1,0 +1,37 @@
+name: Automated Testing
+
+on:
+  push:
+    branches:
+      - '*' # Trigger on any branch push
+  pull_request:
+    branches:
+      - main # Trigger on pull requests to the main branch
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Set up Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: '3.x' # You can specify the Python version you need
+
+      - name: Install dependencies
+        run: pip install -r requirements.txt # Assuming you have a requirements.txt file
+
+      - name: Run unit tests
+        run: python test_fire_gdp.py # Adjust the path and command as needed
+
+      - name: Run functional tests
+        run: |
+          chmod +x fun_test.sh
+          ./fun_8.sh 
+        working-directory: ${{ github.workspace }}
+
+      - name: Run style checks
+        run: pylint test_my_utils.py # Adjust the path and command for style checks
