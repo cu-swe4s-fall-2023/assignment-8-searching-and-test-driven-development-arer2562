@@ -133,8 +133,18 @@ class TestFireGDP(unittest.TestCase):
         self.assertEqual(data[0][1], '1990')
         self.assertEqual(data[1][2], '5.5561')
     
-    
+    def test_get_gdpr(self):
+        gdp_file_name = 'IMF_GDP.csv'
+        target_country = 'Albania'
+        
+        data = fire_gdp.get_data(gdp_file_name, 
+                                 query_value=target_country, 
+                                 query_col=0)
+        
+        self.assertEqual(data[0][2], '...')
+        self.assertEqual(data[0][47],'334,359.13')
 
+        
 if __name__ == '__main__':
     unittest.main()
   
