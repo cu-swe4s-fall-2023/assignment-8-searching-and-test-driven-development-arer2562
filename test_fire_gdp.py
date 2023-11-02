@@ -143,7 +143,34 @@ class TestFireGDP(unittest.TestCase):
         
         self.assertEqual(data[0][2], '...')
         self.assertEqual(data[0][47],'334,359.13')
+    
+    def test_get_fire_gdp_year_data(self):
+        fire_file_name = 'Agrofood_co2_emission.csv'
+        gdp_file_name = 'IMF_GDP.csv'
 
+        fire_year_col = 1
+        fire_savanna_col = 2
+        fire_forest_col = 3
+        
+        # 1: [ [fire], [gdp], [year] ]
+        
+        country = 'Albania'
+        
+        data = fire_gdp.get_fire_gdp_year_data(fire_file_name,
+                                               gdp_file_name,
+                                               country,
+                                               fire_year_col,
+                                               fire_savanna_col,
+                                               fire_forest_col)
+
+        fire = data[0]
+        gdp = data[1]
+        year = data[2]
+        
+        self.assertEqual(1.3469 + 13.3278, fire[0])
+        self.assertEqual(334359.13, gdp[0])
+        self.assertEqual(1996, year[0])
+        
         
 if __name__ == '__main__':
     unittest.main()
