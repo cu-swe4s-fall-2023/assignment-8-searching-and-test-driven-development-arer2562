@@ -1,0 +1,28 @@
+# Define the final target rule
+rule all:
+    input:
+        '4_panel.png',
+        'Agro_NA.csv',
+        'GDP_NA.csv'
+
+rule clean:
+    input:
+        agro = 'Agrofood_co2_emission.csv',
+        gdp = 'IMF_GDP.csv'
+    output:
+        out1 = 'Agro_NA.csv',
+        out2 = 'GDP_NA.csv'
+    shell:
+        """
+        python clean.py {input.agro}
+        python clean.py {input.gdp}
+        """
+        
+rule graphs out:
+    input:
+        agro = 'Agro_NA.csv',
+        gdp = 'GDP_NA.csv'
+    output:
+        '4_panel.png'
+    shell:
+        'python main.py {input.agro} {input.gdp}'

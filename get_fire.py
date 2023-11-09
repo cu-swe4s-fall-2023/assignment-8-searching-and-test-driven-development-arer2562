@@ -31,8 +31,8 @@ fires = data[0]
 gdps = data[1]
 
 
-with open(out_file, 'w') as file:
-    for i in range(len(fires)):
-        file.write('\t'.join([str(fires[i]), str(gdps[i])]) + '\n')
+#with open(out_file, 'w') as file:
+ #   for i in range(len(fires)):
+  #      file.write('\t'.join([str(fires[i]), str(gdps[i])]) + '\n')
 
 final_plot = fire_gdp.scat(country, out_file, plot_file)
