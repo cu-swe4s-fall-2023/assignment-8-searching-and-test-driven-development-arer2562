@@ -2,7 +2,7 @@ Dearest grandfather, I dont know how to say this but, you ruin thanksgiving ever
 
 Starting from the top:
 here is my graph 
-https://github.com/cu-swe4s-fall-2023/assignment-8-searching-and-test-driven-development-arer2562/blob/assn_libs/assn_libs/4_panel.png?raw=true
+[https://github.com/cu-swe4s-fall-2023/assignment-8-searching-and-test-driven-development-arer2562/blob/assn_libs/assn_libs/4_panel.png?raw=true](https://github.com/cu-swe4s-fall-2023/assignment-8-searching-and-test-driven-development-arer2562/blob/a6cf0c87c9637fbc16bccc7374f6cb47c9e28706/assn_libs/4_panel.png)
 
 Figure 1A temperature by year in North america, the only continent you tihnk exists. As you see for past thirty years the temperature has a slow but steady incline! Clearly the earth is warming up.
 
