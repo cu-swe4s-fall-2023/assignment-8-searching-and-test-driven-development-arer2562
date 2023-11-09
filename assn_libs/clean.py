@@ -25,6 +25,7 @@ def read_and_clean(in_file):
         mainland_north_american_countries = [
         'United States', 'Canada', 'Mexico', 'Guatemala']
         gdp_mainland_na_df = read_file[read_file['Country'].isin(mainland_north_american_countries)]
+        gdp_mainland_na_df = gdp_mainland_na_df.replace('United States', 'United States of America')
         # Assuming you want to filter by years and 'Year' is a column
         gdp_mainland_na_df.to_csv('GDP_NA.csv', index=False)
 
