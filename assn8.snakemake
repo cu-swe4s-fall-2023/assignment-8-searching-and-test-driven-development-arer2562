@@ -1,3 +1,10 @@
+# Define the final target rule
+rule all:
+    input:
+        'Argentina.png',
+        'Agrofood_co2_emission.csv',
+        'IMF_GDP.csv'
+
 # Define the rule to download data using wget
 rule download_data:
     output:
@@ -7,43 +14,43 @@ rule download_data:
         "wget -O {output.csv1} 'https://docs.google.com/uc?export=download&id=1Wytf3ryf9EtOwaloms8HEzLG0yjtRqxr'; "
         "wget -O {output.csv2} 'https://docs.google.com/uc?export=download&id=1tuoQ9UTW_XRKgBOBaTLtGXh8h0ytKvFp'"
 
-
-
 # Define the rule to process data with get_fire.py
 rule process_data:
     input:
-        csv1 = "Agrofood_co2_emission.csv",
-        csv2 = "IMF_GDP.csv"
+        csv1 = 'Agrofood_co2_emission.csv',
+        csv2 = 'IMF_GDP.csv'
     output:
-        "Argentina.txt"
+        txt = 'Argentina.txt',
+        png = 'Argentina.png'
     params:
-        target_country = "Argentina",
+        target_country = 'Argentina',
         fire_year_col = 1,
         fire_savanna_col = 2,
         fire_forest_col = 3,
         fire_Co2_col = 29
-    log:
-        "logs/create_data_plot.log"
-    script:
-        "fire_gdp.py {input.csv1} {input.csv2} {params.target_country} {params.fire_year_col} {params.fire_savanna_col} {params.fire_forest_col} {params.fire_Co2_col} {output}"
-
+    shell:
+        " python get_fire.py" 
+        " {input.csv1}"
+        " {params.fire_year_col}" 
+        " {params.fire_savanna_col}"
+        " {params.fire_forest_col}" 
+        " {params.fire_Co2_col}" 
+        " {input.csv2}"
+        " {params.target_country}"
+        " {output.txt}"
+        " {output.png}"
+        
 # Define the rule to create a scatter plot with scatter.py
-rule create_scatter_plot:
-    input:
-        infile = "Argentina.txt",
-    output:
-        "Argentina.png"
-    params:
-        country = "Argentina"
-    log:
-        "logs/create_data_plot.log"
-    script:
-        "fire_gdp.py {input.infile} {params.country} {output}"
+#rule create_scatter_plot:
+#    input:
+#        infile = "Argentina.txt"
+#    output:
+#        "Argentina.png"
+#    params:
+#        country = "Argentina"
+#    shell:
+#        "python fire_gdp.py scat {input.infile} {params.country} {output}"
 
-
-# Define the final target rule
-rule all:
-    input:
-        "Argentina.png"
-
-
+ 
+        
+    

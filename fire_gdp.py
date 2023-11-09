@@ -62,8 +62,13 @@ def get_fire_gdp_year_data(fire_file_name,
             fires.append(float(fire_data[fire_savanna_col]) + float(fire_data[fire_forest_col]))
             years.append(int(year))
             gdps.append(float(clean_str(gdp_datas[0][year_idx])))
-            co2.append(float(fire_data[fire_Co2_col]))
-            
+            co2.append(float(fire_data[fire_Co2_col]))  
+    
+    ofn = f"{target_country}.txt"
+    with open(ofn, 'w') as file:
+        for i in range(len(fires)):
+            file.write('\t'.join([str(fires[i]), str(gdps[i])]) + '\n')
+    
     return [fires, gdps, years, co2]
 
 def scat(country, infile, out_file):
@@ -83,10 +88,7 @@ def scat(country, infile, out_file):
     ax.set_xlabel(x_label)
     ax.set_ylabel(y_label)
     ax.set_title(title)
-
+    filename = f"{country}.png"
     plt.savefig(out_file, bbox_inches='tight')
 
 
-
-if __name__ == '__main__':
-    main()
