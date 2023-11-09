@@ -25,4 +25,4 @@ rule graphs out:
     output:
         '4_panel.png'
     shell:
-        'python main.py {input.agro} {input.gdp}'
+        'python 4panel'
