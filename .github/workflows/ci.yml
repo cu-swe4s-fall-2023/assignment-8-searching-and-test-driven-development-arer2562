@@ -25,7 +25,7 @@ jobs:
         run: pip install -r assn_libs/requirements.txt # Assuming you have a requirements.txt file
 
       - name: Run unit tests
-        run: python test_libs.py # Adjust the path and command as needed
+        run: python tssn_libs/test_libs.py # Adjust the path and command as needed
 
       - name: Run functional tests
         run: |
